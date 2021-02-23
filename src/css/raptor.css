@@ -1,0 +1,16 @@
+/* Wallpaper CSS */
+.raptor-wp {
+  background-color: #303030 !important;
+  color: #fff;
+}
+
+
+.market-wp {
+  color: #fff;
+  background-color: #707070 !important;
+}
+
+.market-table-row:hover {
+  cursor: pointer;
+  background-color: rgb(249, 234, 216) !important;
+}
