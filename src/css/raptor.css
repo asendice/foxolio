@@ -14,3 +14,10 @@
   cursor: pointer;
   background-color: rgb(249, 234, 216) !important;
 }
+
+
+/* @media only screen and (max-width: 400px){
+  .disapear{
+    display: hidden;
+  }
+} */

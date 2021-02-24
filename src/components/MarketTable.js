@@ -16,24 +16,15 @@ const MarketTable = ({ market }) => {
     }
   });
 
+
   const onTermSubmit = (term) => {
     setSearched(term);
   }
 
-  const setCoinObj = (name, img, rank, price, percent, marketCap, allTimeHigh, symbol, lastUpdated, priceChange) => {
+  const setCoinObj = (coin) => {
+    console.log(coin);
     setIsOpen(true);
-    setTheCoin({
-      name: name,
-      img: img,
-      rank: rank,
-      price: price,
-      percent: percent,
-      marketCap: marketCap, 
-      allTimeHigh: allTimeHigh,
-      symbol: symbol,
-      lastUpdated: lastUpdated,
-      priceChange: priceChange
-    })
+    setTheCoin(coin);
   }
 
   return(
@@ -53,24 +44,15 @@ const MarketTable = ({ market }) => {
         </thead>
         <tbody >
           {filterMarket.map(coin => {
-            const name = coin.name;
-            const img = coin.image;
-            const rank = coin.market_cap_rank;
-            const price = roundComma(coin.current_price);
-            const percent = roundComma(coin.price_change_percentage_24h);
-            const marketCap = convertMc(coin.market_cap);
-            const allTimeHigh = roundComma(coin.ath);
-            const symbol = coin.symbol;
-            const lastUpdated = coin.last_updated;
-            const priceChange = roundComma(coin.price_change_24h);
+            setTheCoin(coin);
             return(
-              <tr onClick={() => setCoinObj(name, img, rank, price, percent, marketCap, allTimeHigh, symbol, lastUpdated, priceChange)} className="market-table-row">
-                <td>{rank}</td>
-                <td><img className="ui image avatar" src={img}/></td>
-                <td>{name}</td>
-                <td>${price}</td>
-                <td>{percent}%</td>
-                <td>{marketCap}</td>
+              <tr key={coin.name} onClick={() => setCoinObj(coin)} className="market-table-row">
+                <td>{coin.market_cap_rank}</td>
+                <td><img className="ui image avatar" src={coin.image}/></td>
+                <td>{coin.name}</td>
+                <td>${roundComma(coin.current_price)}</td>
+                <td>{roundComma(coin.price_change_percentage_24h)}%</td>
+                <td>{convertMc(coin.market_cap)}</td>
               </tr>
             )
           })}

@@ -1,31 +1,33 @@
 import React from 'react';
+import {roundComma} from '../numbers/NumChanger';
 import { Image, Modal } from 'semantic-ui-react';
 
 const CoinModal = ({ theCoin, isOpen, setIsOpen }) => {
 
-  console.log(theCoin.name)
+  console.log(theCoin); 
+  console.log(roundComma(4328473284));
 
   return(
     <div> 
       <Modal
-      onClose={() => setIsOpen(false)}
-      open={isOpen}
-    >
-    <Modal.Header>
-      <h1>{theCoin.name} ${theCoin.price}</h1>
-    </Modal.Header>
-    <Modal.Content image>
-      <Image size="small" src={theCoin.img} wrapped />
-      <Modal.Description>
-        {/* <Modal.Header>{theCoin.symbol.toUpperCase()}</Modal.Header> */}
-        <p></p>
-        <p>last updated: {theCoin.lastUpdated}</p>
-        <p>24hr percent: %{theCoin.percent}</p>
-        <p>24hr price change: ${theCoin.priceChange}</p>
-        <p>all time high: {theCoin.allTimeHigh}</p>
-      </Modal.Description>
-    </Modal.Content>
-  </Modal>
+        onClose={() => setIsOpen(false)}  
+        open={isOpen}
+      >
+      <Modal.Header>
+        <h1>{theCoin.name} </h1>
+      </Modal.Header>
+      <Modal.Content image>
+        <Image size="small" src={theCoin.image} wrapped />
+        <Modal.Description>
+          <Modal.Header>{theCoin.symbol}</Modal.Header>
+          <p></p>
+          <p>last updated: {theCoin.last_updated}</p>
+          <p>24hr percent: %{theCoin.price_change_percentage_24h}</p>
+          <p>24hr price change: ${theCoin.price_change_24h}</p>
+          <p>all time high: ${theCoin.ath}</p>
+        </Modal.Description>
+      </Modal.Content>
+    </Modal>
     </div>
     
   )

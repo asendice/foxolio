@@ -18,7 +18,7 @@ const Market = () => {
 
   console.log(market);
   return(
-    <div>
+    <div className="ui">
       <Navigation />
       <MarketTable market={market} />
     </div>
