@@ -4,7 +4,8 @@ import { Image, Modal } from 'semantic-ui-react';
 
 const CoinModal = ({ theCoin, isOpen, setIsOpen }) => {
 
-  console.log(theCoin); 
+  console.log(theCoin);
+  console.log(roundComma(theCoin.current_price));
   console.log(roundComma(4328473284));
 
   return(

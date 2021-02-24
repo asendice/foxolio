@@ -44,7 +44,6 @@ const MarketTable = ({ market }) => {
         </thead>
         <tbody >
           {filterMarket.map(coin => {
-            setTheCoin(coin);
             return(
               <tr key={coin.name} onClick={() => setCoinObj(coin)} className="market-table-row">
                 <td>{coin.market_cap_rank}</td>
