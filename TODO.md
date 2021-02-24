@@ -2,3 +2,5 @@
 API calls from Market.js and Portfolio.js
 
 2) CSS Wallpaper.js - get rid of whitespace 
+
+3) set active navigation bar 

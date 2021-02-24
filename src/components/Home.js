@@ -6,9 +6,8 @@ const Home = () => {
     <div>
     <div className="ui">
       <Navigation />
-    </div>
-    <div>
       <Wallpaper />
+
     </div>
     </div>
   )

@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, Modal } from 'semantic-ui-react';
 
-const CoinModal = ({ isOpen, setIsOpen, modalOpen, modalClose, name, symbol, img, price, percent, allTimeHigh, lastUpdated, priceChange }) => {
-  const [open, setOpen] = useState(false);
-  
+const CoinModal = ({ theCoin, isOpen, setIsOpen }) => {
+
+  console.log(theCoin.name)
+
   return(
-    <div>
+    <div> 
       <Modal
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
-        >
-        <Modal.Header>
-          <h1>{name} ${price}</h1>
-        </Modal.Header>
-        <Modal.Content image>
-          <Image size="small" src={img} wrapped />
-          <Modal.Description>
-            <Modal.Header>{symbol.toUpperCase()}</Modal.Header>
-            <p></p>
-            <p>last updated: {lastUpdated}</p>
-            <p>24hr percent: %{percent}</p>
-            <p>24hr price change: ${priceChange}</p>
-            <p>all time high: {allTimeHigh}</p>
-          </Modal.Description>
-        </Modal.Content>
-      </Modal>
+      onClose={() => setIsOpen(false)}
+      open={isOpen}
+    >
+    <Modal.Header>
+      <h1>{theCoin.name} ${theCoin.price}</h1>
+    </Modal.Header>
+    <Modal.Content image>
+      <Image size="small" src={theCoin.img} wrapped />
+      <Modal.Description>
+        {/* <Modal.Header>{theCoin.symbol.toUpperCase()}</Modal.Header> */}
+        <p></p>
+        <p>last updated: {theCoin.lastUpdated}</p>
+        <p>24hr percent: %{theCoin.percent}</p>
+        <p>24hr price change: ${theCoin.priceChange}</p>
+        <p>all time high: {theCoin.allTimeHigh}</p>
+      </Modal.Description>
+    </Modal.Content>
+  </Modal>
     </div>
+    
   )
 }
 

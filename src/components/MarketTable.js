@@ -4,9 +4,9 @@ import CoinModal from './CoinModal';
 import {roundComma, convertMc } from '../numbers/NumChanger';
 
 const MarketTable = ({ market }) => {
-
   const [searched, setSearched] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [theCoin, setTheCoin] = useState({});
 
   const filterMarket = market.filter(coin => {
     if(coin.name.toLowerCase().includes(searched.toLowerCase()) || coin.symbol.toLowerCase().includes(searched.toLowerCase())){
@@ -20,18 +20,26 @@ const MarketTable = ({ market }) => {
     setSearched(term);
   }
 
-  const modalOpen = () => {
+  const setCoinObj = (name, img, rank, price, percent, marketCap, allTimeHigh, symbol, lastUpdated, priceChange) => {
     setIsOpen(true);
+    setTheCoin({
+      name: name,
+      img: img,
+      rank: rank,
+      price: price,
+      percent: percent,
+      marketCap: marketCap, 
+      allTimeHigh: allTimeHigh,
+      symbol: symbol,
+      lastUpdated: lastUpdated,
+      priceChange: priceChange
+    })
   }
-  // const modalClose = (bool) => {
-  //   setOpen(bool);
-  // }
-
-
 
   return(
     <div className="ui very padded segment">
       <SearchBar onTermSubmit={onTermSubmit} searched={searched} />
+      <CoinModal theCoin={theCoin} isOpen={isOpen} setIsOpen={setIsOpen}/>
       <table className="ui padded unstackable table">
         <thead>
           <tr>
@@ -56,26 +64,13 @@ const MarketTable = ({ market }) => {
             const lastUpdated = coin.last_updated;
             const priceChange = roundComma(coin.price_change_24h);
             return(
-              <tr onClick={modalOpen} className="market-table-row">
+              <tr onClick={() => setCoinObj(name, img, rank, price, percent, marketCap, allTimeHigh, symbol, lastUpdated, priceChange)} className="market-table-row">
                 <td>{rank}</td>
                 <td><img className="ui image avatar" src={img}/></td>
                 <td>{name}</td>
                 <td>${price}</td>
                 <td>{percent}%</td>
                 <td>{marketCap}</td>
-                <CoinModal
-                  setIsOpen={setIsOpen}
-                  isOpen={isOpen}
-                  // modalOpen={modalOpen} 
-                  // modalClose={modalClose}
-                  name={name}
-                  symbol={symbol}
-                  img={img}
-                  price={price}
-                  lastUpdated={lastUpdated}
-                  percent={percent}
-                  allTimeHigh={allTimeHigh}
-                  priceChange={priceChange} />
               </tr>
             )
           })}
