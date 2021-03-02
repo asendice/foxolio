@@ -10,8 +10,9 @@ const SearchBar = ({ onTermSubmit, searched }) => {
     <div className="ui action input">
       <form className="ui form">
         <div className="field">
+          <label>Search Market</label>
           <input
-            placeholder="search crypto..."
+            placeholder="ex) bitcoin, btc"
             value={searched}
             onChange={onInputChange}
             type="text" />
