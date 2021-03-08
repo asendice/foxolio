@@ -15,7 +15,6 @@ const App = () => {
       list.push(selected);
       setPortList(list);
     }
-    console.log(portList);
   }
 
   return(

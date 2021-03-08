@@ -15,42 +15,19 @@ const MarketTable = ({ market, passPortListUp }) => {
     }
   });
 
-  console.log(filterMarket);
-
   const onTermSubmit = (term) => {
     setSearched(term);
   }
 
   const setCoinObj = (coin) => {
-    
     setIsOpen(true);
     setTheCoin(coin);
     
   }
 
-  // const passColor = (color) => {
-  //   if(Number(coin.price_change_percentage_24h) >= 0){
-  //     passColor("green")
-  //     console.log(color);
-  //   }else{
-  //     passColor("red")
-  //     }
-  // }
-
-    // const colorChanger = (coin) => {
-    //   if(coin >= 0){
-    //     setColor("green")
-    //     console.log(color);
-    //   }else{
-    //     setColor("red")
-    //   }
-    //   return coin;
-    // }
-
   return(
     <div className="ui very padded segment">
       <SearchBar onTermSubmit={onTermSubmit} searched={searched} />
-      <CoinModal theCoin={theCoin} isOpen={isOpen} setIsOpen={setIsOpen} passPortListUp={passPortListUp }/>
       <table className="ui padded unstackable table">
         <thead>
           <tr>
@@ -64,7 +41,6 @@ const MarketTable = ({ market, passPortListUp }) => {
         </thead>
         <tbody >
           {filterMarket.map(coin => {
-            
             return(
               <>
               {}
@@ -73,7 +49,8 @@ const MarketTable = ({ market, passPortListUp }) => {
                 <td><img className="ui image avatar" src={coin.image}/></td>
                 <td>{coin.name}</td>
                 <td>${roundComma(coin.current_price)}</td>
-                <td style={{color: color}}>{roundComma(coin.price_change_percentage_24h)}%</td>
+                <td style={{color: (coin.price_change_percentage_24h) >= 0 ? "green" : "red"}}>{roundComma(coin.price_change_percentage_24h)}%</td>
+                {/* <td style={{color: Math.sign(coin.price_change_percentage_24h) === -1 ? "red" : "green"}}>{roundComma(coin.price_change_percentage_24h)}%</td> */}
                 <td>{convertMc(coin.market_cap)}</td>
               </tr>
             </>
@@ -81,6 +58,7 @@ const MarketTable = ({ market, passPortListUp }) => {
           })}
         </tbody>
       </table>
+      <CoinModal theCoin={theCoin} isOpen={isOpen} setIsOpen={setIsOpen} passPortListUp={passPortListUp }/>
     </div>
   )
 }

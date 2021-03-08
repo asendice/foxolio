@@ -5,7 +5,6 @@ import marketGraph from '../images/market-graph.png';
 const Wallpaper = () => {
   return(
     <div>
-      <div className="ui very padded segment">
         <div className="ui two column very relaxed stackable grid raptor-wp">
           <div className="middle aligned column">
             <img 
@@ -41,7 +40,6 @@ const Wallpaper = () => {
         </div>
       </div>
     </div>
-  </div>
   )
 }
 

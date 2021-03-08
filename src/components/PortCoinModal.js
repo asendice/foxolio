@@ -1,20 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {roundComma} from '../numbers/NumChanger';
 import { Modal , Image , Form, TextArea } from 'semantic-ui-react';
 
-const PortCoinModal = ({ coin, isOpen, setIsOpen, setQty, qty, passOverall}) => {
-
+const PortCoinModal = ({ coin, isOpen, setIsOpen, passOverall, createRecentTrans, grabQty}) => {
+  const[qty, setQty] = useState(0);
   const[amt, setAmt] = useState(0);
   const[note, setNote] = useState('');
+  const[buy, setBuy] = useState(true);
 
-  const onFormSubmit = (e) => {
-    setIsOpen(false);
-  }
+  useEffect(() => {
+      const transaction = {
+        id: coin.id,
+        name: coin.name,
+        price: coin.price,
+        total: coin.price * qty,
+        amt: amt,
+        date: date,
+        time: time,
+        note: note,
+        buy: buy
+      }
+      if(transaction.total == 0){
+       setIsOpen(false);
+       console.log('total is 0')
+      }else{
+        createRecentTrans(transaction)
+        passOverall(transaction);
+        grabQty(qty);
+      }
+      setIsOpen(false);
+  }, [qty])
+  
 
   const onBuySubmit = (e) => {
-    setQty(qty + Number(amt));
     e.preventDefault();
-    onFormSubmit();
+    setQty(qty => qty + Number(amt));
   }
 
   const onSellSubmit = (e) => {
@@ -23,31 +43,21 @@ const PortCoinModal = ({ coin, isOpen, setIsOpen, setQty, qty, passOverall}) => 
       alert("Can't have negative coins dumbass")
       setQty(0);
     }else{
-      setQty(qty - Number(amt));
+      setQty(qty => qty - Number(amt));
     }
-    onFormSubmit();
+    setBuy(false);
   }
 
   const today = new Date();
   const date = (today.getMonth()+1) + "-" + today.getDate() + "-" + today.getFullYear();
   const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
   const price_rc = roundComma(coin.price);
   const total_rc = roundComma(coin.price * qty);
+  // onFormSubmit();
 
-  const transaction = {
-    id: coin.id,
-    name: coin.name,
-    price: coin.price,
-    total: coin.price * qty,
-    amt: amt,
-    date: date,
-    time: time,
-    note: note
-  }
-  passOverall(transaction);
 
   return(
+    <>
     <Modal
       onClose={() => setIsOpen(false)}
       onOpen={() => setIsOpen(true)}
@@ -63,6 +73,9 @@ const PortCoinModal = ({ coin, isOpen, setIsOpen, setQty, qty, passOverall}) => 
           <Form.Field>
             <div className="ui segment">
               {coin.name} current price: ${price_rc}
+              <div>
+                your total: {total_rc}
+              </div>
             </div>
             </Form.Field>
             <div className="ui segment">
@@ -89,6 +102,7 @@ const PortCoinModal = ({ coin, isOpen, setIsOpen, setQty, qty, passOverall}) => 
         <button onClick={onSellSubmit} className="ui red button">Sell</button>
       </Modal.Actions>
     </Modal>
+    </>
   )
 }
 

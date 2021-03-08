@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import PortCoinModal from './PortCoinModal';
 import {roundComma} from '../numbers/NumChanger';
 
-const CoinCard = ({ coin, passOverall }) => {
-  const[qty, setQty] = useState(0);
+const CoinCard = ({ coin, passOverall, createRecentTrans, qty }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-
+  const[num, setNum] = useState(0);
+  const grabQty = (qty) => {
+    setNum(qty);
+  }
+  
   return(
     <>
-    <PortCoinModal isOpen={isOpen} setIsOpen={setIsOpen} coin={coin} qty={qty} setQty={setQty} passOverall={passOverall} />
+    <PortCoinModal grabQty={grabQty} isOpen={isOpen} setIsOpen={setIsOpen} coin={coin}  passOverall={passOverall} createRecentTrans={createRecentTrans} />
     <div key={coin.id} onClick={() => setIsOpen(true)} className="card">
       <div className="content">
         <img className="right floated mini ui image" alt={coin.name} src={coin.image}/>
@@ -23,13 +25,12 @@ const CoinCard = ({ coin, passOverall }) => {
           ${roundComma(coin.price)}
         </div>
         <div className="extra content">
-          <div>qty owned: {qty} </div>
-          <div className="right floated">total in usd: ${roundComma(qty * coin.price)} </div>
+          <div>qty owned: {num} </div>
+          <div className="right floated">total in usd: ${roundComma(num * coin.price)} </div>
         </div>
       </div>
     </div>
   </>
   );
 }
-
 export default CoinCard;
